@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 
 public class Board extends AnchorPane {
 
-    BackgroundImage backgroundImage = new BackgroundImage(new Image("file:src/main/resources/map.png"),
+    BackgroundImage backgroundImage = new BackgroundImage(new Image("file:src/main/resources/map2.png"),
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,

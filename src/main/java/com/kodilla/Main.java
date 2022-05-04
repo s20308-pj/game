@@ -25,7 +25,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Board root = new Board();
-        Scene scene = new Scene(root, 600, 600, Color.BLACK);
+        Scene scene = new Scene(root, 600, 600, Color.WHITE);
+
         scene.setOnKeyPressed(event -> {
                     KeyCode pressedKey = event.getCode();
                     switch (pressedKey) {
@@ -60,6 +61,7 @@ public class Main extends Application {
     }
 
     private void draw(Player player) {
+//        playerPawn.
         playerPawn.changePosition(player.getPositionX(), player.getPositionY());
     }
 }

@@ -1,4 +1,4 @@
-package com.kodilla.view.model;
+package com.kodilla.view;
 
 import javafx.scene.image.Image;
 
@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 
 public class Board extends AnchorPane {
 
-    BackgroundImage backgroundImage = new BackgroundImage(new Image("file:src/main/resources/map2.png"),
+    BackgroundImage backgroundImage = new BackgroundImage(new Image("file:src/main/resources/map.png"),
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,

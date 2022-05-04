@@ -1,14 +1,16 @@
 package com.kodilla.controller;
 
-import com.kodilla.model.GameMap;
-import com.kodilla.model.Player;
+//import com.kodilla.model.Enemy.Enemy;
+import com.kodilla.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
 
-    Player player;
-    Move move = new Move();
-    GameMap map = new GameMap();
-    private int mapValue;
+    private Player player;
+    private GameMap map = new GameMap();
+    private List<Enemy> enemyList = new ArrayList();
     private boolean endGame = false;
 
     public Game(Player player) {
@@ -25,6 +27,10 @@ public class Game {
 
     public int[][] getMapValue(){
         return map.getMap();
+    }
+
+    public void addWarriorToEnemyList(int x, int y){
+
     }
 }
 

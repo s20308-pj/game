@@ -1,4 +1,4 @@
-package com.kodilla.view.model;
+package com.kodilla.model;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;

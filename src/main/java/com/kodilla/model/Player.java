@@ -3,7 +3,7 @@ package com.kodilla.model;
 import javafx.scene.image.ImageView;
 
 public class Player extends Pawn{
-    private final static ImageView image = new ImageView("file:src/main/resources/knight.png");
+    private final static String image = "file:src/main/resources/knight.png";
     private int positionX;
     private int positionY;
     private int live;
@@ -20,19 +20,4 @@ public class Player extends Pawn{
         this.magicPower = 10;
     }
 
-    public int getPositionX() {
-        return positionX;
-    }
-
-    public void setPositionX(int positionX) {
-        this.positionX = positionX;
-    }
-
-    public int getPositionY() {
-        return positionY;
-    }
-
-    public void setPositionY(int positionY) {
-        this.positionY = positionY;
-    }
 }

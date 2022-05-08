@@ -1,15 +1,17 @@
 package com.kodilla.model;
 
-import javafx.css.Match;
 import javafx.scene.image.ImageView;
 
-import java.util.Random;
-
 public class Warrior extends Enemy {
-    private final static ImageView image = new ImageView("file:src/main/resources/warrior.png");
+    private final static String image = "file:src/main/resources/warrior.png";
+    private final int WARRIOR_LIVE = 3;
+    private final int WARRIOR_STRENGTH = 4;
+    private final int WARRIOR_MAGIC_POWER = 1;
 
-    public Warrior(int x, int y, int live, int strength, int magicPower) {
-        super(x, y, image, live, strength, magicPower);
-
+    public Warrior(int x, int y, int mapIndex) {
+        super(x, y, image);
+        super.setLive(mapIndex * WARRIOR_LIVE);
+        super.setStrength(mapIndex * WARRIOR_STRENGTH);
+        super.setMagicPower(mapIndex * WARRIOR_MAGIC_POWER);
     }
 }

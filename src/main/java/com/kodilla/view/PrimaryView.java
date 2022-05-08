@@ -2,6 +2,7 @@ package com.kodilla.view;
 
 import com.kodilla.controller.Game;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PrimaryView {
@@ -13,7 +14,7 @@ public class PrimaryView {
 
     public PrimaryView() {
         board = new Board();
-        mainScene = new Scene(board, WIDTH, HEIGHT);
+        mainScene = new Scene(board, WIDTH, HEIGHT, Color.BLACK);
         mainStage = new Stage();
         mainStage.setTitle("GAME");
         mainStage.setResizable(false);

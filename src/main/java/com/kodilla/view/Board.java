@@ -5,17 +5,20 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class Board extends AnchorPane {
+    final int WIDTH = 600;
+    final int HEIGHT = 600;
+    final String backgroundURL = "file:src/main/resources/map.png";
 
-    BackgroundImage backgroundImage = new BackgroundImage(new Image("file:src/main/resources/map.png"),
+    BackgroundImage backgroundImage = new BackgroundImage(
+            new Image(backgroundURL),
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
-            new BackgroundSize(100, 100, true, true, true, false));
+            new BackgroundSize(100, 100, true, true, true, false)
+    );
 
-    public Board(){
-        int WIDTH = 600;
+    public Board() {
         setWidth(WIDTH);
-        int HEIGHT = 600;
         setHeight(HEIGHT);
         setBackground(new Background(backgroundImage));
     }

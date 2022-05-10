@@ -65,8 +65,7 @@ public class Game {
 
     public boolean checkField() {
         if (map.getMapIndex(player.getPositionX(), player.getPositionY()) == 1) {
-            map.setMapIndex(player.getPositionX(), player.getPositionY(), new Random().nextInt(4) + 1);
-
+            map.setMapIndex(player.getPositionX(), player.getPositionY(), new Random().nextInt(3) + 1);
             switch (map.getMapIndex(player.getPositionX(), player.getPositionY())) {
                 case 2:
                     addMageToEnemyList(player.getPositionX(), player.getPositionY());

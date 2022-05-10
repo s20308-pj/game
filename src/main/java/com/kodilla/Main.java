@@ -4,6 +4,8 @@ import com.kodilla.controller.Game;
 import com.kodilla.controller.Move;
 import com.kodilla.model.Enemy;
 import com.kodilla.model.Player;
+import com.kodilla.view.GameButton;
+import com.kodilla.view.InfoPanel;
 import com.kodilla.view.PrimaryView;
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
@@ -46,11 +48,13 @@ public class Main extends Application {
                     player.changePosition(player.getPositionX(), player.getPositionY());
 
                     if (game.checkField()) {
-                        Enemy enemy = game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY());
-                        if (enemy != null) {
-                            view.getBoard().getChildren().add(game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY()));
-                        }
+//                        Enemy enemy = game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY());
+                        view.getBoard().getChildren().add(game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY()));
                     }
+                    // test infoPanel
+//                    InfoPanel infoPanel = new InfoPanel();
+//                    infoPanel.relocate(50,50);
+//                    view.getBoard().getChildren().add(infoPanel);
 
                     // check map position and enemy list
                     System.out.println("x: " + player.getPositionX()

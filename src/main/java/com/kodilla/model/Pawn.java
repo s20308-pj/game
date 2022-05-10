@@ -5,8 +5,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 public abstract class Pawn extends StackPane {
-    protected int positionX;
-    protected int positionY;
+    private int positionX;
+    private int previousPositionX;
+
+    private int positionY;
+    private int previousPositionY;
 
     public Pawn(int x, int y, String imageURL) {
         setWidth(50);
@@ -34,10 +37,10 @@ public abstract class Pawn extends StackPane {
     }
 
     public void changePosition(int x, int y) {
-        this.positionX = x;
-        this.positionY = y;
-        setLayoutX(x * 50);
-        setLayoutY(y * 50);
-//        relocate(x * 50, y * 50);
+        previousPositionX = positionX;
+        positionX = x;
+        previousPositionY = positionY;
+        positionY = y;
+        relocate(x * 50, y * 50);
     }
 }

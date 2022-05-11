@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 public class InfoPanel extends SubScene {
 
     private final String infoBackgroundURL = "file:src/main/resources/infoIMG.png";
+    private boolean isVisible = false;
     BackgroundImage backgroundImage = new BackgroundImage(
             new Image(infoBackgroundURL),
             BackgroundRepeat.NO_REPEAT,
@@ -26,7 +27,6 @@ public class InfoPanel extends SubScene {
         infoPanel.setBackground(new Background(backgroundImage));
         fightButton.relocate(75,375);
         fleeButton.relocate(275, 375);
-
         infoPanel.getChildren().add(fightButton);
         infoPanel.getChildren().add(fleeButton);
     }

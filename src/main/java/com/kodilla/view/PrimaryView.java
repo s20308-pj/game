@@ -12,6 +12,8 @@ public class PrimaryView {
     private Scene mainScene;
     private Stage mainStage;
 
+    private InfoPanel infoPanel = new InfoPanel();
+
     public PrimaryView() {
         board = new Board();
         mainScene = new Scene(board, WIDTH, HEIGHT, Color.BLACK);
@@ -29,5 +31,10 @@ public class PrimaryView {
     }
     public Board getBoard(){
         return board;
+    }
+
+    public void setInfoPanel() {
+        board.getChildren().add(infoPanel);
+        infoPanel.relocate(50,50);
     }
 }

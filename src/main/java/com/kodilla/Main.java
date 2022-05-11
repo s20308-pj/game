@@ -23,36 +23,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         PrimaryView view = new PrimaryView();
+        InfoPanel infoPanel = new InfoPanel();
         primaryStage = view.getMainStage();
 
         view.getMainScene().setOnKeyPressed(event -> {
                     KeyCode pressedKey = event.getCode();
-                    switch (pressedKey) {
-                        case UP:
-                            game.moveUp();
-                            break;
-
-                        case DOWN:
-                            game.moveDown();
-                            break;
-
-                        case LEFT:
-                            game.moveLeft();
-                            break;
-
-                        case RIGHT:
-                            game.moveRight();
-                            break;
-                    }
-
-                    player.changePosition(player.getPositionX(), player.getPositionY());
+                    game.move(pressedKey);
 
                     if (game.checkField()) {
 //                        Enemy enemy = game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY());
                         view.getBoard().getChildren().add(game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY()));
                     }
+
                     // test infoPanel
-//                    InfoPanel infoPanel = new InfoPanel();
 //                    infoPanel.relocate(50,50);
 //                    view.getBoard().getChildren().add(infoPanel);
 

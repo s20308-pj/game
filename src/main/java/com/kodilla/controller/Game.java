@@ -2,6 +2,7 @@ package com.kodilla.controller;
 
 
 import com.kodilla.model.*;
+import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Game {
     Move move = new Move();
     private GameMap map = new GameMap();
     private List<Enemy> enemyList = new ArrayList();
+
     private boolean endGame = false;
 
     public Game(Player player) {
@@ -23,24 +25,29 @@ public class Game {
         return player;
     }
 
+
     public void setPlayer(Player player) {
         this.player = player;
     }
+    public void move(KeyCode pressedKey){
+        switch (pressedKey) {
+            case UP:
+                player = move.moveUp(player, map.getMap());
+                break;
 
-    public void moveUp() {
-        player = move.moveUp(player, map.getMap());
-    }
+            case DOWN:
+                player = move.moveDown(player, map.getMap());
+                break;
 
-    public void moveDown() {
-        player = move.moveDown(player, map.getMap());
-    }
+            case LEFT:
+                player = move.moveLeft(player, map.getMap());
+                break;
 
-    public void moveLeft() {
-        player = move.moveLeft(player, map.getMap());
-    }
-
-    public void moveRight() {
-        player = move.moveRight(player, map.getMap());
+            case RIGHT:
+                player = move.moveRight(player, map.getMap());
+                break;
+        }
+        player.changePosition(player.getPositionX(), player.getPositionY());
     }
 
     public void addMageToEnemyList(int x, int y) {

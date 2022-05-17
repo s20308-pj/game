@@ -1,40 +1,66 @@
 package com.kodilla.view;
 
-import com.kodilla.controller.Game;
+import com.kodilla.model.ButtonEvent;
+import com.kodilla.model.Enemy;
+import com.kodilla.model.Init;
+import com.kodilla.model.Player;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PrimaryView {
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 600;
     private Board board;
     private Scene mainScene;
     private Stage mainStage;
 
-    private InfoPanel infoPanel = new InfoPanel();
+    ButtonEvent buttonEvent = ButtonEvent.WAIT;
+
+    private FightPanel fightPanel = new FightPanel();
 
     public PrimaryView() {
         board = new Board();
-        mainScene = new Scene(board, WIDTH, HEIGHT, Color.BLACK);
+        mainScene = new Scene(board, Init.MAIN_WINDOW_WIDTH, Init.MAIN_WINDOW_HEIGHT, Color.BLACK);
         mainStage = new Stage();
         mainStage.setTitle("GAME");
         mainStage.setResizable(false);
         mainStage.setScene(mainScene);
     }
 
-    public Stage getMainStage(){
+    public Stage getMainStage() {
         return mainStage;
     }
-    public Scene getMainScene(){
+
+    public Scene getMainScene() {
         return mainScene;
     }
-    public Board getBoard(){
+
+    public Board getBoard() {
         return board;
     }
 
-    public void setInfoPanel() {
-        board.getChildren().add(infoPanel);
-        infoPanel.relocate(50,50);
+    private void addFightPanel() {
+        board.getChildren().add(fightPanel);
+    }
+
+    private void removeFightPanel() {
+        board.getChildren().remove(fightPanel);
+    }
+
+    public ButtonEvent setFightPanel(Player player, Enemy enemy) {
+
+        addFightPanel();
+        fightPanel.addDescriptionToFightPanel(player, enemy);
+        fightPanel.movePanelToVisible();
+        fightPanel.getFleeButton().setOnAction(event -> {
+            fightPanel.movePanelToHidden();
+            buttonEvent = ButtonEvent.RUN;
+             removeFightPanel();
+            });
+        fightPanel.getFightButton().setOnAction(event -> {
+            fightPanel.movePanelToHidden();
+            buttonEvent = ButtonEvent.FIGHT;
+            removeFightPanel();
+        });
+        return buttonEvent;
     }
 }

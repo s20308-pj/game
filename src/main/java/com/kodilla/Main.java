@@ -1,11 +1,11 @@
 package com.kodilla;
 
+import com.kodilla.controller.Fight;
 import com.kodilla.controller.Game;
 import com.kodilla.controller.Move;
+import com.kodilla.model.ButtonEvent;
 import com.kodilla.model.Enemy;
 import com.kodilla.model.Player;
-import com.kodilla.view.GameButton;
-import com.kodilla.view.InfoPanel;
 import com.kodilla.view.PrimaryView;
 import javafx.application.Application;
 import javafx.scene.input.KeyCode;
@@ -22,26 +22,49 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         PrimaryView view = new PrimaryView();
-        InfoPanel infoPanel = new InfoPanel();
         primaryStage = view.getMainStage();
 
         view.getMainScene().setOnKeyPressed(event -> {
+                    int actionOnFiled;
                     KeyCode pressedKey = event.getCode();
                     game.move(pressedKey);
 
-                    if (game.checkField()) {
-//                        Enemy enemy = game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY());
+                    if (game.isFiledToDrawEnemy(player.getPositionX(), player.getPositionY())) {
+                        game.drawFiled();
                         view.getBoard().getChildren().add(game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY()));
                     }
-
-                    // test infoPanel
-//                    infoPanel.relocate(50,50);
-//                    view.getBoard().getChildren().add(infoPanel);
+                    actionOnFiled = game.doActionOnFiled(player.getPositionX(), player.getPositionY());
+                    switch (actionOnFiled) {
+                        case 2:
+                        case 3:
+                            meetEnemy(player, game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY()), view);
+                            break;
+                        case 5:
+                            // view fightPanel
+                            // fight bridgeGuard or back
+                            break;
+                        case 6:
+                            // view fightPanel
+                            // fight bossGuard or back
+                            break;
+                        case 7:
+                            //chance to buy live
+                            break;
+                        case 8:
+                            //chance to buy magicPower
+                            break;
+                        case 9:
+                            //chance to buy strength
+                            break;
+                    }
 
                     // check map position and enemy list
-                    System.out.println("x: " + player.getPositionX()
-                            + ", y:" + player.getPositionY()
+                    System.out.println(" x: " + player.getPositionX()
+                            + " , y:" + player.getPositionY()
+                            + "\npx: " + player.getPreviousPositionX()
+                            + ", py: " + player.getPreviousPositionY()
                             + ", index: " + game.getMapIndex(player.getPositionX(), player.getPositionY())
                             + " enemy: " + game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY()));
                     System.out.println(game.getEnemyList().toString());
@@ -52,4 +75,19 @@ public class Main extends Application {
         view.getBoard().getChildren().add(player);
         primaryStage.show();
     }
+
+    private void meetEnemy(Player player, Enemy enemy, PrimaryView view) {
+        Fight fight = new Fight();
+        ButtonEvent event = view.setFightPanel(player, enemy);
+        switch (event) {
+            case RUN:
+                player.changePositionToPreviousPosition();
+                break;
+            case FIGHT:
+                boolean win = fight.fight(player,enemy);
+
+                break;
+        }
+    }
+
 }

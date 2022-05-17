@@ -11,6 +11,7 @@ import java.util.Random;
 public class Game {
 
     private Player player;
+
     Move move = new Move();
     private GameMap map = new GameMap();
     private List<Enemy> enemyList = new ArrayList();
@@ -25,29 +26,53 @@ public class Game {
         return player;
     }
 
-
     public void setPlayer(Player player) {
         this.player = player;
     }
-    public void move(KeyCode pressedKey){
+
+    public void move(KeyCode pressedKey) {
         switch (pressedKey) {
             case UP:
-                player = move.moveUp(player, map.getMap());
+
+                move.moveUp(player, map.getMap());
                 break;
 
             case DOWN:
-                player = move.moveDown(player, map.getMap());
+                move.moveDown(player, map.getMap());
                 break;
 
             case LEFT:
-                player = move.moveLeft(player, map.getMap());
+                move.moveLeft(player, map.getMap());
                 break;
 
             case RIGHT:
-                player = move.moveRight(player, map.getMap());
+                move.moveRight(player, map.getMap());
                 break;
         }
         player.changePosition(player.getPositionX(), player.getPositionY());
+    }
+
+    public boolean isFiledToDrawEnemy(int x, int y) {
+        if (getMapIndex(x, y) == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public int doActionOnFiled(int x, int y) {
+        return getMapIndex(x, y);
+    }
+
+    public void drawFiled() {
+        map.setMapIndex(player.getPositionX(), player.getPositionY(), new Random().nextInt(2) + 2);
+        switch (map.getMapIndex(player.getPositionX(), player.getPositionY())) {
+            case 2:
+                addMageToEnemyList(player.getPositionX(), player.getPositionY());
+                break;
+            case 3:
+                addWarriorToEnemyList(player.getPositionX(), player.getPositionY());
+                break;
+        }
     }
 
     public void addMageToEnemyList(int x, int y) {
@@ -72,17 +97,11 @@ public class Game {
 
     public boolean checkField() {
         if (map.getMapIndex(player.getPositionX(), player.getPositionY()) == 1) {
-            map.setMapIndex(player.getPositionX(), player.getPositionY(), new Random().nextInt(3) + 1);
-            switch (map.getMapIndex(player.getPositionX(), player.getPositionY())) {
-                case 2:
-                    addMageToEnemyList(player.getPositionX(), player.getPositionY());
-                    return true;
-                case 3:
-                    addWarriorToEnemyList(player.getPositionX(), player.getPositionY());
-                    return true;
-            }
+            return true;
         }
         return false;
     }
+
 }
+
 

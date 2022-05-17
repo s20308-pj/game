@@ -1,16 +1,14 @@
 package com.kodilla.view;
 
+import com.kodilla.model.Init;
 import javafx.scene.image.Image;
 
 import javafx.scene.layout.*;
 
 public class Board extends AnchorPane {
-    final int WIDTH = 600;
-    final int HEIGHT = 600;
-    final String backgroundURL = "file:src/main/resources/map.png";
 
     BackgroundImage backgroundImage = new BackgroundImage(
-            new Image(backgroundURL),
+            new Image(Init.URL_MAP_BG),
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.CENTER,
@@ -18,8 +16,8 @@ public class Board extends AnchorPane {
     );
 
     public Board() {
-        setWidth(WIDTH);
-        setHeight(HEIGHT);
+        setWidth(Init.MAIN_WINDOW_WIDTH);
+        setHeight(Init.INFO_WINDOW_HEIGHT);
         setBackground(new Background(backgroundImage));
     }
 }

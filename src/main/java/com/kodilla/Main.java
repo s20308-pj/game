@@ -39,7 +39,7 @@ public class Main extends Application {
                     switch (actionOnFiled) {
                         case 2:
                         case 3:
-                            meetEnemy(player, game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY()), view);
+                            meetEnemy(view);
                             break;
                         case 5:
                             // view fightPanel
@@ -76,16 +76,25 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private void meetEnemy(Player player, Enemy enemy, PrimaryView view) {
+    private void meetEnemy(PrimaryView view) {
+        System.out.println("in meetEnemy");
+        Player player = game.getPlayer();
+        Enemy enemy = game.getEnemyFromEnemyList(player.getPositionX(), player.getPositionY());
         Fight fight = new Fight();
         ButtonEvent event = view.setFightPanel(player, enemy);
+        System.out.println("test");
         switch (event) {
             case RUN:
-                player.changePositionToPreviousPosition();
+                System.out.println("RUN");
                 break;
             case FIGHT:
-                boolean win = fight.fight(player,enemy);
+                boolean win = fight.fight(player, enemy);
+                view.setInfoPanel(win);
 
+                if (enemy.getLive() == 0) {
+                    game.removeEnemyFormEnemyList(enemy, player.getPreviousPositionX(), player.getPositionY());
+                    view.getBoard().getChildren().remove(enemy);
+                }
                 break;
         }
     }

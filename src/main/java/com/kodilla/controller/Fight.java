@@ -1,11 +1,6 @@
 package com.kodilla.controller;
 
-import com.kodilla.model.Enemy;
-import com.kodilla.model.Mage;
-import com.kodilla.model.Player;
-import com.kodilla.model.Warrior;
-
-import java.util.Random;
+import com.kodilla.model.*;
 
 public class Fight {
     public boolean fight(Player player, Enemy enemy) {
@@ -32,9 +27,9 @@ public class Fight {
     }
 
     private boolean fightResult(int playerPower, int enemyPower) {
-        Random random = new Random();
-        playerPower = playerPower * random.nextInt(6) + 1;
-        enemyPower = enemyPower * random.nextInt(6) + 1;
+
+        playerPower = playerPower + Init.throwDice(6);
+        enemyPower = enemyPower * Init.throwDice(6);
         if (playerPower > enemyPower) {
             return true;
         }

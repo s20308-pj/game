@@ -1,7 +1,6 @@
 package com.kodilla.model;
 
 import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
 
 public class Warrior extends Enemy {
     private final int WARRIOR_LIVE = 1;
@@ -12,8 +11,8 @@ public class Warrior extends Enemy {
         super(x, y, Init.URL_WARRIOR);
         this.setAlignment(Pos.CENTER);
         this.name = "Wojownik";
-        this.live = mapIndex * WARRIOR_LIVE;
-        this.strength = mapIndex * WARRIOR_STRENGTH;
-        this.magicPower = mapIndex * WARRIOR_MAGIC_POWER;
+        this.live = WARRIOR_LIVE;
+        this.strength = WARRIOR_STRENGTH + Init.throwDice(mapIndex);
+        this.magicPower = mapIndex + Init.throwDice(mapIndex);
     }
 }

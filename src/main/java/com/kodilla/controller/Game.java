@@ -82,6 +82,10 @@ public class Game {
     public void addWarriorToEnemyList(int x, int y) {
         enemyList.add(new Warrior(x, y, 4));
     }
+    public void removeEnemyFormEnemyList(Enemy enemy, int x, int y){
+        map.setMapIndex(x, y, 1);
+        enemyList.remove(enemy);
+    }
 
     public int getMapIndex(int x, int y) {
         return map.getMapIndex(x, y);

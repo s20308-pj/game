@@ -42,25 +42,37 @@ public class PrimaryView {
         board.getChildren().add(fightPanel);
     }
 
-    private void removeFightPanel() {
+    public void removeFightPanel() {
         board.getChildren().remove(fightPanel);
     }
 
     public ButtonEvent setFightPanel(Player player, Enemy enemy) {
-
         addFightPanel();
-        fightPanel.addDescriptionToFightPanel(player, enemy);
+        fightPanel.setDescription(player, enemy);
         fightPanel.movePanelToVisible();
         fightPanel.getFleeButton().setOnAction(event -> {
             fightPanel.movePanelToHidden();
-            buttonEvent = ButtonEvent.RUN;
-             removeFightPanel();
-            });
+            setButtonEventToRUN();
+            player.changePositionToPreviousPosition();
+            removeFightPanel();
+        });
         fightPanel.getFightButton().setOnAction(event -> {
             fightPanel.movePanelToHidden();
-            buttonEvent = ButtonEvent.FIGHT;
+            buttonEventToFIGHT();
             removeFightPanel();
         });
         return buttonEvent;
+    }
+
+    private void setButtonEventToRUN() {
+        buttonEvent = ButtonEvent.RUN;
+    }
+
+    private void buttonEventToFIGHT() {
+        buttonEvent = ButtonEvent.FIGHT;
+    }
+
+    public void setInfoPanel(boolean win) {
+
     }
 }

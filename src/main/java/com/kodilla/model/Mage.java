@@ -9,9 +9,9 @@ public class Mage extends Enemy {
 
     public Mage(int x, int y, int mapIndex) {
         super(x, y, Init.URL_MAGE);
-        this.name = "mag";
-        this.live = mapIndex * MAGE_LIVE;
-        this.strength = mapIndex * MAGE_STRENGTH;
-        this.magicPower = mapIndex * MAGE_MAGIC_POWER;
+        this.name = "Mag";
+        this.live = MAGE_LIVE;
+        this.strength = mapIndex + Init.throwDice(mapIndex);
+        this.magicPower = mapIndex + Init.throwDice(mapIndex);
     }
 }

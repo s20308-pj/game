@@ -8,6 +8,7 @@ public class Move {
     public Player moveUp(Player player, int[][] mapValue) {
         point = mapValue[player.getPositionY() - 1][player.getPositionX()];
         if (player.getPositionY() > 1 && point != 0) {
+            player.setPreviousPositionX(player.getPositionX());
             player.setPreviousPositionY(player.getPositionY());
             player.setPositionY(player.getPositionY() - 1);
         }
@@ -17,6 +18,7 @@ public class Move {
     public Player moveDown(Player player, int[][] mapValue) {
         point = mapValue[player.getPositionY() + 1][player.getPositionX()];
         if (player.getPositionY() < 10 && point != 0) {
+            player.setPreviousPositionX(player.getPositionX());
             player.setPreviousPositionY(player.getPositionY());
             player.setPositionY(player.getPositionY() + 1);
         }
@@ -27,6 +29,7 @@ public class Move {
         point = mapValue[player.getPositionY()][player.getPositionX() + 1];
         if (player.getPositionX() < 10 && point != 0) {
             player.setPreviousPositionX(player.getPositionX());
+            player.setPreviousPositionY(player.getPositionY());
             player.setPositionX(player.getPositionX() + 1);
         }
         return player;
@@ -36,6 +39,7 @@ public class Move {
         point = mapValue[player.getPositionY()][player.getPositionX() - 1];
         if (player.getPositionX() > 1 && point != 0) {
             player.setPreviousPositionX(player.getPositionX());
+            player.setPreviousPositionY(player.getPositionY());
             player.setPositionX(player.getPositionX() - 1);
         }
         return player;

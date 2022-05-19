@@ -42,6 +42,10 @@ public class PrimaryView {
         board.getChildren().add(fightPanel);
     }
 
+    public FightPanel getFightPanel() {
+        return fightPanel;
+    }
+
     public void removeFightPanel() {
         board.getChildren().remove(fightPanel);
     }

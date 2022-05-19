@@ -11,6 +11,8 @@ import javafx.application.Application;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
+import java.beans.EventHandler;
+
 public class Main extends Application {
     Move move = new Move();
     private final Player player = new Player();

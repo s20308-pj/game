@@ -1,33 +1,35 @@
-package com.kodilla.view;
+package com.kodilla.view.template;
+
 
 import com.kodilla.model.Init;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
-import javafx.scene.text.Font;
 
-public class GameButton extends Button {
+public class ButtonTemplate extends Button {
 
 
-    public GameButton(String text) {
+    public ButtonTemplate(String text) {
         setText(text);
-        setFont(Font.font("Comic Sans MS", 22));
-        setPrefHeight(50);
-        setPrefWidth(140);
+        setAlignment(Pos.CENTER);
+        setFont(Init.BUTTON_FONT);
+        setPrefHeight(Init.BUTTON_HEIGHT);
+        setPrefWidth(Init.BUTTON_WIDTH);
         setBackground(Init.createBackground(Init.URL_BUTTON_RELEASED));
         initializeButtonListener();
     }
 
     private void setButtonPressedStyle() {
-        setPrefHeight(50);
+        setPrefHeight(Init.BUTTON_HEIGHT);
         setBackground(Init.createBackground(Init.URL_BUTTON_PRESSED));
-        setLayoutY(getLayoutY() + 1);
+        setLayoutY(getLayoutY() + 2);
     }
 
     private void setButtonReleasedStyle() {
-        setPrefHeight(49);
+        setPrefHeight(Init.BUTTON_HEIGHT - 2);
         setBackground(Init.createBackground(Init.URL_BUTTON_RELEASED));
-        setLayoutY(getLayoutY() - 1);
+        setLayoutY(getLayoutY() - 2);
     }
 
     private void initializeButtonListener() {
@@ -46,9 +48,8 @@ public class GameButton extends Button {
         setOnMouseEntered(mouseEvent -> {
             setEffect(new DropShadow());
         });
-        setOnMouseExited(mouseEvent ->{
+        setOnMouseExited(mouseEvent -> {
             setEffect(null);
         });
     }
 }
-

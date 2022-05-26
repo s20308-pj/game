@@ -1,33 +1,26 @@
 package com.kodilla.controller;
 
-
 import com.kodilla.model.*;
 import javafx.scene.input.KeyCode;
 
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Game {
-
-    private Player player;
-
+    Player player = new Player();
     Move move = new Move();
-    private GameMap map = new GameMap();
+    GameMap map = new GameMap();
     private List<Enemy> enemyList = new ArrayList();
+    private boolean end = false;
 
-    private boolean endGame = false;
-
-    public Game(Player player) {
-        this.player = player;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setNewGame() {
+        player.setLive(5);
+        player.setStrength(5);
+        player.setMagicPower(5);
+        player.setPositionX(5);
+        player.setPositionY(10);
+        enemyList.clear();
     }
 
     public void move(KeyCode pressedKey) {
@@ -52,19 +45,19 @@ public class Game {
         player.changePosition(player.getPositionX(), player.getPositionY());
     }
 
-    public boolean isFiledToDrawEnemy(int x, int y) {
-        if (getMapIndex(x, y) == 1) {
+    public boolean isFiledToDrawEnemy() {
+        if (getMapIndex(player.getPositionX(), player.getPositionY()) == 1) {
             return true;
         }
         return false;
     }
 
-    public int doActionOnFiled(int x, int y) {
-        return getMapIndex(x, y);
+    private int getMapIndex(int x, int y) {
+        return map.getMapIndex(x, y);
     }
 
     public void drawFiled() {
-        map.setMapIndex(player.getPositionX(), player.getPositionY(), new Random().nextInt(2) + 2);
+        map.setMapIndex(player.getPositionX(), player.getPositionY(), Init.throwDice(2) + 1);
         switch (map.getMapIndex(player.getPositionX(), player.getPositionY())) {
             case 2:
                 addMageToEnemyList(player.getPositionX(), player.getPositionY());
@@ -82,30 +75,45 @@ public class Game {
     public void addWarriorToEnemyList(int x, int y) {
         enemyList.add(new Warrior(x, y, 4));
     }
-    public void removeEnemyFormEnemyList(Enemy enemy, int x, int y){
-        map.setMapIndex(x, y, 1);
-        enemyList.remove(enemy);
-    }
 
-    public int getMapIndex(int x, int y) {
-        return map.getMapIndex(x, y);
-    }
-
-    public Enemy getEnemyFromEnemyList(int x, int y) {
+    public Enemy getEnemyFromEnemyList() {
+        int x = player.getPositionX();
+        int y = player.getPositionY();
         return enemyList.stream().filter(enemy -> enemy.getPositionX() == x).filter(enemy -> enemy.getPositionY() == y).findFirst().orElse(null);
     }
 
-    public List<Enemy> getEnemyList() {
-        return enemyList;
+    public Player getPlayer() {
+        return player;
     }
 
-    public boolean checkField() {
-        if (map.getMapIndex(player.getPositionX(), player.getPositionY()) == 1) {
+    public int doActionOnFiled() {
+        return getMapIndex(player.getPositionX(), player.getPositionY());
+    }
+
+    public boolean buyStrength() {
+        if (player.getExperience() > 10) {
+            player.setExperience(player.getExperience() - 10);
+            player.setStrength(player.getStrength() + 1);
             return true;
         }
         return false;
     }
 
+    public boolean buyMagicPower() {
+        if (player.getExperience() > 10) {
+            player.setExperience(player.getExperience() - 10);
+            player.setMagicPower(player.getMagicPower() + 1);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean buyLive() {
+        if (player.getExperience() > 10) {
+            player.setExperience(player.getExperience() - 10);
+            player.setLive(player.getLive() + 1);
+            return true;
+        }
+        return false;
+    }
 }
-
-

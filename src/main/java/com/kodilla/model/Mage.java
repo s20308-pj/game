@@ -1,7 +1,5 @@
 package com.kodilla.model;
 
-import javafx.scene.image.ImageView;
-
 public class Mage extends Enemy {
     private final int MAGE_LIVE = 1;
     private final int MAGE_MAGIC_POWER = 2;
@@ -12,6 +10,14 @@ public class Mage extends Enemy {
         this.name = "Mag";
         this.live = MAGE_LIVE;
         this.strength = mapIndex + Init.throwDice(mapIndex);
-        this.magicPower = mapIndex + Init.throwDice(mapIndex);
+        this.magicPower = MAGE_MAGIC_POWER + Init.throwDice(mapIndex);
+    }
+    public boolean fight(Player player) {
+        int enemyPower = this.getMagicPower() + Init.throwDice(6);
+        int playerPower = player.getMagicPower() + Init.throwDice(6);
+        if (playerPower > enemyPower) {
+            return true;
+        }
+        return false;
     }
 }

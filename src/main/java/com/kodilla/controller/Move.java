@@ -1,10 +1,10 @@
 package com.kodilla.controller;
 
+
 import com.kodilla.model.Player;
 
 public class Move {
     int point;
-
     public Player moveUp(Player player, int[][] mapValue) {
         point = mapValue[player.getPositionY() - 1][player.getPositionX()];
         if (player.getPositionY() > 1 && point != 0) {

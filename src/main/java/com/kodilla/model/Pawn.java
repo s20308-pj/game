@@ -1,10 +1,7 @@
 package com.kodilla.model;
 
-import javafx.animation.TranslateTransition;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.util.Duration;
+import javafx.scene.layout.StackPane;
 
 public abstract class Pawn extends StackPane {
     private int positionX;

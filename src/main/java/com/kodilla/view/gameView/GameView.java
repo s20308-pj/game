@@ -4,6 +4,7 @@ package com.kodilla.view.gameView;
 import com.kodilla.controller.Game;
 import com.kodilla.model.Enemy;
 import com.kodilla.model.Init;
+import com.kodilla.view.gameView.subScene.FightResultPanel;
 import com.kodilla.view.gameView.subScene.MeetEnemyPanel;
 import com.kodilla.view.gameView.subScene.ShopTemplate;
 import com.kodilla.view.template.SubSceneTemplate;
@@ -13,16 +14,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GameView {
-    private Board board;
-    private Scene gameScene;
-    private Stage gameStage;
+    private final Board board;
+    private final Scene gameScene;
+    private final Stage gameStage;
     private Stage menuStage;
     Game game = new Game();
     private SubSceneTemplate visibleSubScene;
-    private MeetEnemyPanel meetEnemyPanel = new MeetEnemyPanel();
-    private ShopTemplate cityPanel = new ShopTemplate(Init.URL_CITY, Init.CITY_TEXT);
-    private ShopTemplate towerPanel = new ShopTemplate(Init.URL_TOWER, Init.TOWER_TEXT);
-    private ShopTemplate templePanel = new ShopTemplate(Init.URL_TEMPLE, Init.TEMPLE_TEXT);
+    private final MeetEnemyPanel meetEnemyPanel = new MeetEnemyPanel();
+    private final FightResultPanel fightResultPanel = new FightResultPanel();
+    private final ShopTemplate cityPanel = new ShopTemplate(Init.URL_CITY, Init.CITY_TEXT);
+    private final ShopTemplate towerPanel = new ShopTemplate(Init.URL_TOWER, Init.TOWER_TEXT);
+    private final ShopTemplate templePanel = new ShopTemplate(Init.URL_TEMPLE, Init.TEMPLE_TEXT);
 
     public GameView() {
         board = new Board();
@@ -82,14 +84,39 @@ public class GameView {
         visibleSubScene = meetEnemyPanel;
         Enemy enemy = game.getEnemyFromEnemyList();
         board.getChildren().add(meetEnemyPanel);
-        meetEnemyPanel.setTextToLabel(game.getPlayer(),enemy);
+        meetEnemyPanel.setTextToLabel(game.getPlayer(), enemy);
         meetEnemyPanel.moveSceneToVisibility();
         meetEnemyPanel.getRunButton().setOnAction(event -> {
             meetEnemyPanel.moveSceneToHidden();
+            game.getPlayer().changePositionToPreviousPosition();
             visibleSubScene = null;
             board.getChildren().remove(meetEnemyPanel);
         });
+        meetEnemyPanel.getFightButton().setOnAction(event -> {
+            visibleSubScene = fightResultPanel;
+            meetEnemyPanel.moveSceneToHidden();
+            board.getChildren().remove(meetEnemyPanel);
+            board.getChildren().add(fightResultPanel);
+            fightResultPanel.moveSceneToVisibility();
+            if (game.fight()) {
+                fightResultPanel.setWinText(game.getPlayer());
+            } else {
+                fightResultPanel.setLostText(game.getPlayer());
+            }
 
+            if (game.getEnemyFromEnemyList().getLive() == 0) {
+                board.getChildren().remove(game.getEnemyFromEnemyList());
+                game.removeEnemyFromList();
+            }
+            fightResultPanel.getOkButton().setOnAction(event1 -> {
+                visibleSubScene = null;
+                fightResultPanel.moveSceneToHidden();
+                board.getChildren().remove(fightResultPanel);
+                if (game.getPlayer().getLive() == 0) {
+                    endGame();
+                }
+            });
+        });
     }
 
     private void setCityPanel() {
@@ -140,17 +167,18 @@ public class GameView {
         });
     }
 
-    private void checkFiled() {
-
-    }
-
-
     public void newGame(Stage menuStage) {
         this.menuStage = menuStage;
         menuStage.hide();
         game.setNewGame();
         board.getChildren().add(game.getPlayer());
         gameStage.show();
+    }
+
+    private void endGame() {
+        board.getChildren().remove(game.getPlayer());
+        gameStage.hide();
+        menuStage.show();
     }
 
 }

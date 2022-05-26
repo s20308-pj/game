@@ -11,8 +11,7 @@ public class Game {
     Player player = new Player();
     Move move = new Move();
     GameMap map = new GameMap();
-    private List<Enemy> enemyList = new ArrayList();
-    private boolean end = false;
+    private final List<Enemy> enemyList = new ArrayList();
 
     public void setNewGame() {
         player.setLive(5);
@@ -46,10 +45,7 @@ public class Game {
     }
 
     public boolean isFiledToDrawEnemy() {
-        if (getMapIndex(player.getPositionX(), player.getPositionY()) == 1) {
-            return true;
-        }
-        return false;
+        return getMapIndex(player.getPositionX(), player.getPositionY()) == 1;
     }
 
     private int getMapIndex(int x, int y) {
@@ -80,6 +76,10 @@ public class Game {
         int x = player.getPositionX();
         int y = player.getPositionY();
         return enemyList.stream().filter(enemy -> enemy.getPositionX() == x).filter(enemy -> enemy.getPositionY() == y).findFirst().orElse(null);
+    }
+    public void removeEnemyFromList(){
+        enemyList.remove(getEnemyFromEnemyList());
+        map.setMapIndex(player.getPositionX(), player.getPositionY(), 1);
     }
 
     public Player getPlayer() {
@@ -115,5 +115,9 @@ public class Game {
             return true;
         }
         return false;
+    }
+
+    public boolean fight() {
+        return getEnemyFromEnemyList().fight(player);
     }
 }

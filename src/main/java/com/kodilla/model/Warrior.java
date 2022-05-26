@@ -11,8 +11,8 @@ public class Warrior extends Enemy {
         this.setAlignment(Pos.CENTER);
         this.name = "Wojownik";
         this.live = WARRIOR_LIVE;
-        this.strength = WARRIOR_STRENGTH + Init.throwDice(mapIndex);
-        this.magicPower = mapIndex + Init.throwDice(mapIndex);
+        this.strength = WARRIOR_STRENGTH + Init.throwDice(4);
+        this.magicPower = Init.throwDice(4);
     }
 
     @Override
@@ -20,8 +20,11 @@ public class Warrior extends Enemy {
         int enemyPower = this.getStrength() + Init.throwDice(6);
         int playerPower = player.getStrength() + Init.throwDice(6);
         if (playerPower > enemyPower) {
+            player.setExperience(player.getExperience()+enemyPower);
+            this.setLive(0);
             return true;
         }
+        player.setLive(player.getLive()-1);
         return false;
     }
 }

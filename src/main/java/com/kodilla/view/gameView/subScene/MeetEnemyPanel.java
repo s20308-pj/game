@@ -73,11 +73,11 @@ public class MeetEnemyPanel extends SubSceneTemplate {
     public void setTextToLabel(Player player, Enemy enemy) {
         String playerText = player.getName()
                 + "\nzycie:" + player.getLive()
-                + "\nsila:" + player.getLive()
+                + "\nsila:" + player.getStrength()
                 + "\nmagia:" + player.getMagicPower();
         String enemyText = enemy.getName()
                 + "\nzycie:" + enemy.getLive()
-                + "\nsila:" + enemy.getLive()
+                + "\nsila:" + enemy.getStrength()
                 + "\nmagia:" + enemy.getMagicPower();
         playerLabel.setText(playerText);
         enemyLabel.setText(enemyText);

@@ -117,7 +117,7 @@ public class Game {
         return false;
     }
 
-    public boolean fight() {
+    public int fight() {
         return getEnemyFromEnemyList().fight(player);
     }
 }

@@ -20,7 +20,7 @@ public class ShopTemplate extends SubSceneTemplate {
         setHeight(8 * Init.HEIGHT);
         relocate(-10 * Init.WIDTH, Init.HEIGHT);
         createImage(imageUrl);
-        createShopButton();
+        createButton();
         setDescription(text);
         createBuyResult();
     }
@@ -35,7 +35,7 @@ public class ShopTemplate extends SubSceneTemplate {
         getPanel().getChildren().add(image);
     }
 
-    private void createShopButton() {
+    private void createButton() {
         okButton = new ButtonTemplate("OK");
         buyButton = new ButtonTemplate("KUP");
         okButton.relocate(1.5 * Init.WIDTH, getHeight() - 2.5 * Init.HEIGHT);
@@ -58,6 +58,7 @@ public class ShopTemplate extends SubSceneTemplate {
         transition.setDuration(Duration.seconds(0.3));
         transition.setNode(this);
         transition.setToX(0);
+        buyResult.setText("");
         transition.play();
     }
 

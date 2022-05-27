@@ -9,21 +9,22 @@ import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
 
-public class FightResultPanel extends SubSceneTemplate {
+public class EndGamePanel extends SubSceneTemplate {
 
     private ButtonTemplate okButton;
     private LabelDescriptionScene fightResultLabel;
 
-    public FightResultPanel() {
+
+    public EndGamePanel() {
         setWidth(Init.INFO_VIEW_WIDTH);
         setHeight(Init.INFO_VIEW_HEIGHT);
         getPanel().setBackground(Init.createBackground(Init.URL_INFO_BG));
-        relocate(Init.WIDTH, Init.HEIGHT * 10);
+        relocate(Init.WIDTH * 10, Init.HEIGHT);
         createButtons();
-        createFightResultLabel();
+        createEndGameLabel();
     }
 
-    private void createFightResultLabel() {
+    private void createEndGameLabel() {
         fightResultLabel = new LabelDescriptionScene("");
         fightResultLabel.relocate(Init.WIDTH * 2, Init.HEIGHT * 2);
         fightResultLabel.setAlignment(Pos.CENTER);
@@ -31,27 +32,13 @@ public class FightResultPanel extends SubSceneTemplate {
         fightResultLabel.setFont(Init.BUTTON_FONT);
     }
 
-    public void setDrawText(Player player) {
-        String winDraw = "\tRemis\n" + statistic(player);
-        fightResultLabel.setText(winDraw);
-    }
-
-    public void setWinText(Player player) {
-        String winText = "\tZwyciestwo\n" + statistic(player);
-        fightResultLabel.setText(winText);
-    }
-
-    public void setLostText(Player player) {
-        String lostText = "\tPrzegrana\n" + statistic(player);
-        fightResultLabel.setText(lostText);
-    }
-
-    private String statistic(Player player) {
-        return "Twoje statystyki:\n"+
+    public void setEndText(Player player) {
+        fightResultLabel.setText("Twoja przygoda dobiegla konca" +
+                "\nS  tatystyki:" +
                 "\nzycie - " + player.getLive() +
                 "\nsila - " + player.getStrength() +
                 "\nmagia - " + player.getMagicPower() +
-                "\ndoswiadczeie - " + player.getExperience();
+                "\ndoswiadczeie - " + player.getExperience());
     }
 
     private void createButtons() {
@@ -60,13 +47,12 @@ public class FightResultPanel extends SubSceneTemplate {
         getPanel().getChildren().add(okButton);
     }
 
-
     @Override
     public void moveSceneToVisibility() {
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(0.3));
         transition.setNode(this);
-        transition.setToY(-Init.HEIGHT * 9);
+        transition.setToX(-Init.WIDTH * 9);
         transition.play();
     }
 
@@ -74,7 +60,7 @@ public class FightResultPanel extends SubSceneTemplate {
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(0.3));
         transition.setNode(this);
-        transition.setToY(0);
+        transition.setToX(0);
         transition.play();
     }
 

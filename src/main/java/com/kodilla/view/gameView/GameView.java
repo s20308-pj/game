@@ -4,6 +4,8 @@ package com.kodilla.view.gameView;
 import com.kodilla.controller.Game;
 import com.kodilla.model.Enemy;
 import com.kodilla.model.Init;
+import com.kodilla.model.Player;
+import com.kodilla.view.gameView.subScene.EndGamePanel;
 import com.kodilla.view.gameView.subScene.FightResultPanel;
 import com.kodilla.view.gameView.subScene.MeetEnemyPanel;
 import com.kodilla.view.gameView.subScene.ShopTemplate;
@@ -22,6 +24,7 @@ public class GameView {
     private SubSceneTemplate visibleSubScene;
     private final MeetEnemyPanel meetEnemyPanel = new MeetEnemyPanel();
     private final FightResultPanel fightResultPanel = new FightResultPanel();
+    private final EndGamePanel endGamePanel = new EndGamePanel();
     private final ShopTemplate cityPanel = new ShopTemplate(Init.URL_CITY, Init.CITY_TEXT);
     private final ShopTemplate towerPanel = new ShopTemplate(Init.URL_TOWER, Init.TOWER_TEXT);
     private final ShopTemplate templePanel = new ShopTemplate(Init.URL_TEMPLE, Init.TEMPLE_TEXT);
@@ -98,12 +101,17 @@ public class GameView {
             board.getChildren().remove(meetEnemyPanel);
             board.getChildren().add(fightResultPanel);
             fightResultPanel.moveSceneToVisibility();
-            if (game.fight()) {
-                fightResultPanel.setWinText(game.getPlayer());
-            } else {
-                fightResultPanel.setLostText(game.getPlayer());
+            switch (game.fight()) {
+                case 0:
+                    fightResultPanel.setDrawText(game.getPlayer());
+                    break;
+                case 1:
+                    fightResultPanel.setWinText(game.getPlayer());
+                    break;
+                case 2:
+                    fightResultPanel.setLostText(game.getPlayer());
+                    break;
             }
-
             if (game.getEnemyFromEnemyList().getLive() == 0) {
                 board.getChildren().remove(game.getEnemyFromEnemyList());
                 game.removeEnemyFromList();
@@ -168,17 +176,28 @@ public class GameView {
     }
 
     public void newGame(Stage menuStage) {
-        this.menuStage = menuStage;
-        menuStage.hide();
-        game.setNewGame();
-        board.getChildren().add(game.getPlayer());
-        gameStage.show();
+
+            this.menuStage = menuStage;
+            menuStage.hide();
+            game.setNewGame();
+            board.getChildren().add(game.getPlayer());
+            gameStage.show();
+
     }
 
     private void endGame() {
+        visibleSubScene = endGamePanel;
+        board.getChildren().add(endGamePanel);
+        endGamePanel.setEndText(game.getPlayer());
+        endGamePanel.moveSceneToVisibility();
+        endGamePanel.getOkButton().setOnAction(event -> {
+            endGamePanel.moveSceneToHidden();
+            visibleSubScene = null;
+            board.getChildren().remove(endGamePanel);
         board.getChildren().remove(game.getPlayer());
         gameStage.hide();
         menuStage.show();
+        });
     }
 
 }

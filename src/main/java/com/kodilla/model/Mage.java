@@ -12,15 +12,9 @@ public class Mage extends Enemy {
         this.magicPower = MAGE_MAGIC_POWER + Init.throwDice(4);
     }
 
-    public boolean fight(Player player) {
-        int enemyPower = this.getMagicPower() + Init.throwDice(6);
-        int playerPower = player.getMagicPower() + Init.throwDice(6);
-        if (playerPower > enemyPower) {
-            player.setExperience(player.getExperience() + enemyPower);
-            this.setLive(0);
-            return true;
-        }
-        player.setLive(player.getLive() - 1);
-        return false;
+    public int fight(Player player) {
+        int enemyPower = this.getMagicPower() + Init.throwDice(4);
+        int playerPower = player.getMagicPower() + Init.throwDice(4);
+        return fightResult(playerPower, enemyPower, player);
     }
 }

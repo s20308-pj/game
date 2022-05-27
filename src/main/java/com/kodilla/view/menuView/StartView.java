@@ -9,9 +9,9 @@ import javafx.stage.Stage;
 
 public class StartView {
 
-    private Scene menuScene;
-    private Stage menuStage;
-    private Menu menu;
+    private final Scene menuScene;
+    private final Stage menuStage;
+    private final Menu menu;
 
     public StartView() {
         menu = new Menu();
@@ -27,18 +27,12 @@ public class StartView {
         menu.getStartButton().setOnAction(event -> {
             GameView gameView = new GameView();
             gameView.newGame(menuStage);
-
         });
         menu.getDescriptionButton().setOnAction(event -> {
             menu.getGameDescriptionScene().moveSceneToVisibility();
         });
         menu.getEndButton().setOnAction(event -> menuStage.close());
     }
-
-
-//    public Scene getMenuScene() {
-//        return menuScene;
-//    }
 
     public Stage getMenuStage() {
         return menuStage;

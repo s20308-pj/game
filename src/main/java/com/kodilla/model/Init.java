@@ -58,7 +58,7 @@ public class Init {
 
     public static String drawImage() {
             String image = URL_TOWER;
-        switch (throwDice(4)){
+        switch (throwDice(3)){
             case 1:
                 image = URL_TEMPLE;
                 break;

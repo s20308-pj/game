@@ -16,15 +16,10 @@ public class Warrior extends Enemy {
     }
 
     @Override
-    public boolean fight(Player player) {
-        int enemyPower = this.getStrength() + Init.throwDice(6);
-        int playerPower = player.getStrength() + Init.throwDice(6);
-        if (playerPower > enemyPower) {
-            player.setExperience(player.getExperience()+enemyPower);
-            this.setLive(0);
-            return true;
-        }
-        player.setLive(player.getLive()-1);
-        return false;
+    public int fight(Player player) {
+        int enemyPower = this.getStrength() + Init.throwDice(4);
+        int playerPower = player.getStrength() + Init.throwDice(4);
+        return fightResult(playerPower,enemyPower,player);
     }
+
 }
